@@ -1,1 +1,3 @@
-https://m.jd.com/
+每月6号更换cookie
+
+在network里查看”log.gif?t=……..”
