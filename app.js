@@ -10,11 +10,17 @@ const download = require('download')
 // 公共变量
 const KEY = process.env.JD_COOKIE
 const serverJ = process.env.PUSH_KEY
+const iqyi_key = process.env.IQIYI_COOKIE
 
 async function downFile () {
-    // const url = 'https://cdn.jsdelivr.net/gh/NobyDa/Script@master/JD-DailyBonus/JD_DailyBonus.js'
     const url = 'https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js'
     await download(url, './')
+}
+
+
+async function downFile2 () {
+  const url = 'https://raw.githubusercontent.com/NobyDa/Script/master/iQIYI-DailyBonus/iQIYI.js'
+  await download(url, './')
 }
 
 async function changeFiele () {
@@ -22,6 +28,13 @@ async function changeFiele () {
    content = content.replace(/var Key = ''/, `var Key = '${KEY}'`)
    await fs.writeFileSync( './JD_DailyBonus.js', content, 'utf8')
 }
+
+async function changeFiele2 () {
+  let content = await fs.readFileSync('./iQIYI.js', 'utf8')
+  content = content.replace(/var cookie = ''/, `var cookie = '${iqyi_key}'`)
+  await fs.writeFileSync( './iQIYI.js', content, 'utf8')
+}
+
 
 async function sendNotify (text,desp) {
   const options ={
@@ -44,21 +57,29 @@ async function start() {
   }
   // 下载最新代码
   await downFile();
+  await downFile2();
   console.log('下载代码完毕')
   // 替换变量
   await changeFiele();
+  await changeFiele2();
   console.log('替换变量完毕')
   // 执行
   await exec("node JD_DailyBonus.js >> result.txt");
+  await exec("node iQIYI.js >> result1.txt");
   console.log('执行完毕')
 
   if (serverJ) {
     const path = "./result.txt";
+    const path1 = "./result1.txt";
     let content = "";
     if (fs.existsSync(path)) {
       content = fs.readFileSync(path, "utf8");
     }
-    await sendNotify("京东签到-" + new Date().toLocaleDateString(), content);
+    if (fs.existsSync(path1)) {
+      content1 = fs.readFileSync(path1, "utf8");
+    }
+    await sendNotify("京东+IQIYI 签到-" + new Date().toLocaleDateString(), content + '\n' + content1);
+    console.log(content + '\n' + content1)
     console.log('发送结果完毕')
   }
 }
