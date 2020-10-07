@@ -10,8 +10,8 @@ const download = require('download')
 // 公共变量
 const KEY = process.env.JD_COOKIE
 const serverJ = process.env.PUSH_KEY
-const iqyi_key = process.env.IQIYI_COOKIE
-console.log(iqyi_key)
+const KEY2 = process.env.IQIYI_COOKIE
+console.log(KEY2)
 
 async function downFile () {
     const url = 'https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js'
