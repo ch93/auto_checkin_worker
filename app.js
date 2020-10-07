@@ -11,6 +11,7 @@ const download = require('download')
 const KEY = process.env.JD_COOKIE
 const serverJ = process.env.PUSH_KEY
 const iqyi_key = process.env.IQIYI_COOKIE
+console.log(iqyi_key)
 
 async function downFile () {
     const url = 'https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js'
@@ -64,7 +65,7 @@ async function start() {
   await changeFiele2();
   console.log('替换变量完毕')
   // 执行
-  await exec("node JD_DailyBonus.js >> result.txt");
+//   await exec("node JD_DailyBonus.js >> result.txt");
   await exec("node iQIYI.js >> result1.txt");
   console.log('执行完毕')
 
