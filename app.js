@@ -64,7 +64,7 @@ async function start() {
   await changeFiele2();
   console.log('替换变量完毕')
   // 执行
-//   await exec("node JD_DailyBonus.js >> result.txt");
+  await exec("node JD_DailyBonus.js >> result.txt");
   await exec("node iQIYI.js >> result1.txt");
   console.log('执行完毕')
 
