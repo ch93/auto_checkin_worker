@@ -72,8 +72,11 @@ async function start() {
     const path = "./result.txt";
     const path1 = "./result1.txt";
     let content = "";
+    let content1 = "";
     if (fs.existsSync(path)) {
       content = fs.readFileSync(path, "utf8");
+      let split_str = "【签到概览】";
+      content = split_str + content.split(split_str)[1];  
     }
     if (fs.existsSync(path1)) {
       content1 = fs.readFileSync(path1, "utf8");
